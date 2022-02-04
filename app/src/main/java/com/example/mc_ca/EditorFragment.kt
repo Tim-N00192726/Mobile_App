@@ -25,7 +25,7 @@ class EditorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // ActionBar is menu on top
+        // ActionBar is the menu on top
         (activity as AppCompatActivity).supportActionBar?.let {
             // 'it' is similar to 'this' in Java (there are small differences)
             it.setHomeButtonEnabled(true)
@@ -42,7 +42,7 @@ class EditorFragment : Fragment() {
         binding.punchline.setText(args.joke.punchline)
 
         viewModel = ViewModelProvider(this).get(EditorViewModel::class.java)
-        //if the rsting is changed update in the layout
+        //if the rating is changed update in the layout
         viewModel.currentRating.observe(viewLifecycleOwner, Observer {
             binding.myRatings.setText(it.myRatings)
         })
@@ -63,7 +63,7 @@ class EditorFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            // When the home button is clicked, save changes then return to the MainFragment, which is the List
+            // When the home button is clicked, save changes then return to the MainFragment
             android.R.id.home -> saveAndReturn()
             else -> super.onOptionsItemSelected(item)
         }
