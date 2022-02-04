@@ -13,8 +13,8 @@ interface RatingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRating(rating: RatingEntity)
 
-    // ratings is defined in RatingEntity as the table name
+//gets the ratings in Rating Entity. table name ratings is defined in RatingEntity
     @Query("SELECT * FROM ratings WHERE id = :id")
-    // Use ? as the object may be null - i.e. now entry in the DB for that id.
+    // gets rating by id. ? is used because value may be null
     fun getRatingById(id: String?):RatingEntity?
 }

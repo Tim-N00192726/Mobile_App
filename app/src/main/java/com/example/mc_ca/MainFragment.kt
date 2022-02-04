@@ -32,29 +32,21 @@ class MainFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
 
-        // action bar with the up/back/home button - Tick symbol, does not display in ListFragment, but is set to display in EditorFragment,
         (activity as AppCompatActivity)
             .supportActionBar?.setDisplayHomeAsUpEnabled(false)
         setHasOptionsMenu(true)
 
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        // remember viewModel contains the MutableLiveData which is the list of Plants
-        // we will use this later to populate the RecyclerView and observe it for changes
-        // remember viewModel contains the LiveData which is the list of Plants
-        // Instantiate the ViewModel - init in the view model will be called first time this is done.
-        // Have a look at ViewModel init{ } it calls getPlants() which gets the list of plants from the API using retrofit
+
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        // with is used to access an object attributes, without have to refer to the object every time
-        // with is actually a function, and the object in this case is the recyclerView
         with(binding.recyclerView) {
             setHasFixedSize(true)
             val divider = DividerItemDecoration(
                 context, LinearLayoutManager(context).orientation
             )
             addItemDecoration(divider)
-            // without using with you may have done this...
-            // binding.recyclerView.addItemDecoration(divider)
+
         }
 
         viewModel.jokes.observe(viewLifecycleOwner, Observer {
@@ -67,11 +59,9 @@ class MainFragment : Fragment(),
 
     }
 
+    //when joke is clicked go from main fragment to editor fragment
     override fun onItemClick(joke: JokeEntity) {
 
-        // Log - print out to logcat to help with debugging if errors occur
-        // TAG is a constant defined in Constants.kt - you can search yhe logcat using this TAG to help with debugging errors
-        //Log.i(TAG, "onItemClick : Received Team name ${team.name}")
         val action = MainFragmentDirections.actionMainFragmentToEditorFragment(joke)
         findNavController().navigate(action)
     }

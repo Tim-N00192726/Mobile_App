@@ -15,6 +15,7 @@ class EditorViewModel (app: Application) : AndroidViewModel(app) {
     private val database = AppDatabase.getInstance(app)
     val currentRating = MutableLiveData<RatingEntity>()
 
+    //gets the rating from the database
     fun getRating(ratingId: String?) {
         Log.i(TAG2, "Id : " + ratingId)
         viewModelScope.launch {
@@ -30,6 +31,7 @@ class EditorViewModel (app: Application) : AndroidViewModel(app) {
         }
     }
 
+    //inserts rating into the rating entity
     fun saveRating(ratingEntity: RatingEntity) {
 
         viewModelScope.launch {

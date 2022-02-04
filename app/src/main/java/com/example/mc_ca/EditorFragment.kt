@@ -35,27 +35,25 @@ class EditorFragment : Fragment() {
         }
         setHasOptionsMenu(true)
 
-        // bind 'binding' to the editor fragment layout
+        // bind with the editor fragment layout
         binding = EditorFragmentBinding.inflate(inflater, container, false)
-        // Set the title and description from the Plant object passed in from the MainFragment        binding.setup.setText(args.joke.setup)
+        // define the setup and punchline of the joke passed from the main fragment
         binding.setup.setText(args.joke.setup)
         binding.punchline.setText(args.joke.punchline)
 
-        // create the viewModel, observe the live data (Favourite object for the current Plant)
-        // if the live data changes update the layout so it displays those comments.
         viewModel = ViewModelProvider(this).get(EditorViewModel::class.java)
+        //if the rsting is changed update in the layout
         viewModel.currentRating.observe(viewLifecycleOwner, Observer {
             binding.myRatings.setText(it.myRatings)
         })
 
-        // tell the viewModel to get access the local database to see if there are favourite comments for the current plant
+        // viewModel gets any ratings for the joke in the database
         viewModel.getRating(args.joke.id)
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true){
                 override fun handleOnBackPressed(){
-                    // you write the code for saveAndReturn - later this will need to save to the Database
                     saveAndReturn()
                 }
             }
@@ -72,8 +70,6 @@ class EditorFragment : Fragment() {
     }
 
     private fun saveAndReturn() : Boolean{
-        // at the moment we save to favourites, even if there are no comments
-        // Try insert a save or cancel functionality so this does not happen.
         viewModel.saveRating(RatingEntity(args.joke.id.toString(), binding.myRatings.text.toString()))
 
         findNavController().navigateUp()

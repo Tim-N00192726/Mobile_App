@@ -6,7 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-
+//helps consume data from the api
 object RetrofitInstance {
 
     private val retrofit by lazy {

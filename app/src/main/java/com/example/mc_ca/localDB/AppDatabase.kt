@@ -7,9 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.mc_ca.data.RatingEntity
 
-// If you make changes to your Entity class and therefore need to make changes to your table easiest thing
-// to do is change the version here and uncomment .fallbackToDestructiveMigration() below.
-// This will scrap the whole database and start again.
+
 @Database(entities = [RatingEntity::class], version = 2, exportSchema = false)
 
 abstract class AppDatabase: RoomDatabase() {
